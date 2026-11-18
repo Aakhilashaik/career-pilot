@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>ATS Analyzer</title>
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        CareerPilot AI
+    </div>
+
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="applications.html">
+        📄 Applications
+    </a>
+
+    <a href="interviews.html">
+        🎯 Interviews
+    </a>
+
+    <a href="ats.html">
+        📊 ATS Analyzer
+    </a>
+
+    <a href="ats-history.html">
+        📈 ATS History
+    </a>
+    <a href="resume-history.html">
+        📁 Resume History
+    </a>
+
+
+    <a href="#"
+       onclick="logout()">
+
+        🚪 Logout
+
+    </a>
+
+</div>
+
+<div class="main-content">
+
+    <h1>ATS Resume Analyzer</h1>
+
+    <br>
+
+    <div class="recent-box">
+
+        <h3>Upload Resume</h3>
+
+        <br>
+
+        <input
+        type="file"
+        id="resumeFile"
+        accept=".pdf">
+
+        <br><br>
+
+        <h3>Job Description</h3>
+
+        <br>
+
+        <textarea
+        id="jobDescription"
+        rows="10"
+        placeholder="Paste Job Description Here"></textarea>
+
+        <br><br>
+
+        <button onclick="analyzeResume()">
+
+            Analyze Resume
+
+        </button>
+
+    </div>
+
+    <br><br>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h2 id="atsScore">
+                0%
+            </h2>
+
+            <p>ATS Score</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="predictedScore">
+                0%
+            </h2>
+
+            <p>Predicted Score</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="skillMatch">
+                0%
+            </h2>
+
+            <p>Job Skill Match</p>
+
+        </div>
+
+    </div>
+
+    <p id="analysisStatus" role="status"></p>
+
+    <br>
+
+    <div class="recent-box">
+
+        <h3>Strengths</h3>
+
+        <p id="strengths"></p>
+
+        <br>
+
+        <h3>Weaknesses</h3>
+
+        <p id="weaknesses"></p>
+
+        <br>
+
+        <h3>Recommendations</h3>
+
+        <p id="recommendations"></p>
+
+    </div>
+
+</div>
+
+<script src="js/ats.js"></script>
+
+</body>
+
+</html>

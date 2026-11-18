@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CareerPilot Dashboard</title>
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        CareerPilot AI
+    </div>
+
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="applications.html">
+        📄 Applications
+    </a>
+
+    <a href="interviews.html">
+        🎯 Interviews
+    </a>
+
+    <a href="ats.html">
+        📊 ATS Analyzer
+    </a>
+
+    <a href="ats-history.html">
+        📈 ATS History
+    </a>
+    <a href="resume-history.html">
+        📁 Resume History
+    </a>
+
+
+    <a href="#"
+       onclick="logout()">
+
+        🚪 Logout
+
+    </a>
+
+</div>
+
+    <div class="main-content">
+
+        <div class="header">
+
+            <h1>Dashboard</h1>
+
+            <div
+                class="welcome"
+                id="welcomeUser">
+
+            </div>
+
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h2 id="applications">
+                    0
+                </h2>
+
+                <p>
+                    Total Applications
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h2 id="interviews">
+                    0
+                </h2>
+
+                <p>
+                    Interviews
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h2 id="atsScore">
+                    0%
+                </h2>
+
+                <p>
+                    ATS Score
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h2 id="selected">
+                    0
+                </h2>
+
+                <p>
+                    Selected Jobs
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="recent-box">
+
+                <h3>
+                    Recent Applications
+                </h3>
+
+                <table>
+
+                    <tr>
+                        <th>Company</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+
+                    <tr>
+                        <td>Infosys</td>
+                        <td>System Engineer</td>
+                        <td class="applied">
+                            Applied
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>TCS</td>
+                        <td>Java Developer</td>
+                        <td class="interview">
+                            Interview
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        <div class="ats-box">
+
+            <h3>
+                ATS Insights
+            </h3>
+
+            <div
+                class="circle"
+                id="atsCircle">
+
+                0%
+
+            </div>
+
+    <p>
+
+        Resume ATS Performance
+
+    </p>
+
+</div>
+
+        </div>
+
+    </div>
+    
+
+<script src="js/dashboard.js"></script>
+<script src="js/logout.js"></script>
+
+</body>
+
+</html>

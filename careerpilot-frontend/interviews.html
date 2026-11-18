@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Interviews</title>
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        CareerPilot AI
+    </div>
+
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="applications.html">
+        📄 Applications
+    </a>
+
+    <a href="interviews.html">
+        🎯 Interviews
+    </a>
+
+    <a href="ats.html">
+        📊 ATS Analyzer
+    </a>
+
+    <a href="ats-history.html">
+        📈 ATS History
+    </a>
+    <a href="resume-history.html">
+        📁 Resume History
+    </a>
+
+
+    <a href="#"
+       onclick="logout()">
+
+        🚪 Logout
+
+    </a>
+
+</div>
+
+<div class="main-content">
+
+    <h1>Interview Management</h1>
+
+    <br>
+
+    <div class="recent-box">
+
+        <h3>Schedule Interview</h3>
+
+        <br>
+
+        <input
+        id="companyName"
+        placeholder="Company Name">
+
+        <input
+        id="roundName"
+        placeholder="Round Name">
+
+        <input
+        type="date"
+        id="interviewDate">
+
+        <input
+        type="time"
+        id="interviewTime">
+
+        <input
+        id="meetingLink"
+        placeholder="Meeting Link">
+
+        <button onclick="scheduleInterview()">
+
+            Schedule Interview
+
+        </button>
+
+    </div>
+
+    <br><br>
+
+    <div class="recent-box">
+
+        <h3>My Interviews</h3>
+
+        <br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Company</th>
+                    <th>Round</th>
+                    <th>Date</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="interviewTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="js/interviews.js"></script>
+
+</body>
+
+</html>
