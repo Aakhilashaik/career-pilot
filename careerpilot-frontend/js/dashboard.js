@@ -37,16 +37,16 @@ async function loadDashboard() {
             "atsCircle"
         );
 
-        if(atsCircle){
+        if (atsCircle) {
 
             atsCircle.innerHTML =
-            data.averageAtsScore + "%";
+                data.averageAtsScore + "%";
 
             atsCircle.style.background =
-            `conic-gradient(
-            #06B6D4 ${data.averageAtsScore}%,
-            #334155 ${100-data.averageAtsScore}%
-            )`;
+                `conic-gradient(
+                    #06B6D4 ${data.averageAtsScore}%,
+                    #334155 ${100 - data.averageAtsScore}%
+                )`;
         }
 
         const email =
@@ -54,25 +54,36 @@ async function loadDashboard() {
             "userEmail"
         );
 
-        const welcome =
+        const welcomeUser =
         document.getElementById(
             "welcomeUser"
         );
 
-        if(welcome){
+        if (welcomeUser) {
 
-            welcome.innerHTML =
-            "Welcome Back 👋 " +
-            (email || "User");
+            welcomeUser.innerHTML =
+                `
+                <h3>
+                    Welcome Back 👋
+                </h3>
+
+                <p>
+                    ${email || "CareerPilot User"}
+                </p>
+
+                <small>
+                    Career Growth Starts Here
+                </small>
+                `;
         }
 
     }
-    catch(error){
+    catch (error) {
 
         console.log(error);
 
         alert(
-            "Unable to load dashboard data."
+            "Unable to load dashboard."
         );
     }
 }

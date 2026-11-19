@@ -68,4 +68,6 @@ public class AtsAnalysis {
 	public void setRecruiterFeedback(String recruiterFeedback) {
 		this.recruiterFeedback = recruiterFeedback;
 	}
+	
+
 }

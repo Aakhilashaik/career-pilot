@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>ATS Analyzer</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ATS Resume Analyzer</title>
 
     <link rel="stylesheet"
           href="css/dashboard.css">
@@ -18,35 +23,22 @@
         CareerPilot AI
     </div>
 
-    <a href="dashboard.html">
-        🏠 Dashboard
-    </a>
+    <a href="dashboard.html">🏠 Dashboard</a>
 
-    <a href="applications.html">
-        📄 Applications
-    </a>
+    <a href="applications.html">📄 Applications</a>
 
-    <a href="interviews.html">
-        🎯 Interviews
-    </a>
+    <a href="interviews.html">🎯 Interviews</a>
 
-    <a href="ats.html">
-        📊 ATS Analyzer
-    </a>
+    <a href="ats.html">📊 ATS Analyzer</a>
 
-    <a href="ats-history.html">
-        📈 ATS History
-    </a>
-    <a href="resume-history.html">
-        📁 Resume History
-    </a>
+    <a href="ats-history.html">📈 ATS History</a>
 
+    <a href="resume-history.html">📁 Resume History</a>
 
-    <a href="#"
-       onclick="logout()">
+    <a href="ats-comparison.html">⚖ ATS Comparison</a>
 
+    <a href="#" onclick="logout()">
         🚪 Logout
-
     </a>
 
 </div>
@@ -59,7 +51,7 @@
 
     <div class="recent-box">
 
-        <h3>Upload Resume</h3>
+        <h3>Upload Resume PDF</h3>
 
         <br>
 
@@ -69,6 +61,12 @@
         accept=".pdf">
 
         <br><br>
+
+        <p id="selectedFile">
+            No Resume Selected
+        </p>
+
+        <br>
 
         <h3>Job Description</h3>
 
@@ -94,42 +92,57 @@
     <div class="cards">
 
         <div class="card">
-
-            <h2 id="atsScore">
-                0%
-            </h2>
-
+            <h2 id="atsScore">0%</h2>
             <p>ATS Score</p>
-
         </div>
 
         <div class="card">
-
-            <h2 id="predictedScore">
-                0%
-            </h2>
-
+            <h2 id="predictedScore">0%</h2>
             <p>Predicted Score</p>
-
         </div>
 
         <div class="card">
+            <h2 id="skillMatch">0%</h2>
+            <p>Skill Match</p>
+        </div>
 
-            <h2 id="skillMatch">
-                0%
-            </h2>
+        <div class="card">
+            <h2 id="projectScore">0</h2>
+            <p>Project Score</p>
+        </div>
 
-            <p>Job Skill Match</p>
+        <div class="card">
+            <h2 id="experienceScore">0</h2>
+            <p>Experience Score</p>
+        </div>
 
+        <div class="card">
+            <h2 id="achievementScore">0</h2>
+            <p>Achievement Score</p>
+        </div>
+
+        <div class="card">
+            <h2 id="resumeQualityScore">0</h2>
+            <p>Resume Quality</p>
         </div>
 
     </div>
 
-    <p id="analysisStatus" role="status"></p>
-
-    <br>
+    <br><br>
 
     <div class="recent-box">
+
+        <h3>Matched Skills</h3>
+
+        <p id="matchedKeywords"></p>
+
+        <br>
+
+        <h3>Missing Skills</h3>
+
+        <p id="missingKeywords"></p>
+
+        <br>
 
         <h3>Strengths</h3>
 
@@ -147,11 +160,19 @@
 
         <p id="recommendations"></p>
 
+        <br>
+
+        <h3>Recruiter Feedback</h3>
+
+        <p id="feedback"></p>
+
     </div>
 
 </div>
 
 <script src="js/ats.js"></script>
+
+<script src="js/logout.js"></script>
 
 </body>
 

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ATS Comparison</title>
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        CareerPilot AI
+    </div>
+
+    <a href="dashboard.html">🏠 Dashboard</a>
+
+    <a href="applications.html">📄 Applications</a>
+
+    <a href="interviews.html">🎯 Interviews</a>
+
+    <a href="ats.html">📊 ATS Analyzer</a>
+
+    <a href="ats-history.html">📈 ATS History</a>
+
+    <a href="resume-history.html">📁 Resume History</a>
+
+    <a href="ats-comparison.html">⚖ ATS Comparison</a>
+
+    <a href="#" onclick="logout()">
+        🚪 Logout
+    </a>
+
+</div>
+
+<div class="main-content">
+
+    <h1>
+        ATS Comparison Dashboard
+    </h1>
+
+    <br>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h2 id="bestResumeId">
+                -
+            </h2>
+
+            <p>
+                Best Resume ID
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="bestResumeScore">
+                -
+            </h2>
+
+            <p>
+                Best ATS Score
+            </p>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="recent-box">
+
+        <h3>
+            Resume Comparison
+        </h3>
+
+        <br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Resume ID</th>
+
+                    <th>ATS Score</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="comparisonTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="js/ats-comparison.js"></script>
+
+<script src="js/logout.js"></script>
+
+</body>
+
+</html>

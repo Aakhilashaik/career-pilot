@@ -1,43 +1,61 @@
 async function loadHistory(){
 
     try{
-        const response = await fetch("http://localhost:8080/api/ats/history");
-        if(!response.ok){
-            throw new Error("Unable to load ATS History.");
-        }
 
-        const history = await response.json();
-        const table = document.getElementById("historyTable");
-        table.replaceChildren();
+        const response =
+        await fetch(
+        "http://localhost:8080/api/ats/history"
+        );
+
+        const history =
+        await response.json();
+
+        let rows = "";
 
         history.forEach(item => {
-            const row = table.insertRow();
-            row.insertCell().textContent = item.id;
-            row.insertCell().textContent = item.resumeName || `Resume ${item.resumeId}`;
 
-            const scoreCell = row.insertCell();
-            const score = document.createElement("span");
-            score.className = "score-badge";
-            score.textContent = `${item.atsScore}%`;
-            scoreCell.appendChild(score);
+            rows += `
 
-            row.insertCell().textContent =
-                item.recruiterFeedback || "No feedback available.";
+            <tr>
+
+                <td>${item.id}</td>
+
+                <td>${item.resumeId}</td>
+
+                <td>
+
+                    <span class="score-badge">
+
+                        ${item.atsScore}
+
+                    </span>
+
+                </td>
+
+                <td>${item.matchedKeywords}</td>
+
+                <td>${item.missingKeywords}</td>
+
+                <td>${item.recruiterFeedback}</td>
+
+            </tr>
+
+            `;
         });
 
-        if(history.length === 0){
-            const row = table.insertRow();
-            const cell = row.insertCell();
-            cell.colSpan = 4;
-            cell.textContent = "No ATS analyses yet.";
-        }
+        document.getElementById(
+        "historyTable"
+        ).innerHTML = rows;
 
     }
+
     catch(error){
 
         console.log(error);
-        document.getElementById("historyTable").textContent =
-            "Unable to load ATS History.";
+
+        alert(
+        "Unable to load ATS History"
+        );
     }
 }
 

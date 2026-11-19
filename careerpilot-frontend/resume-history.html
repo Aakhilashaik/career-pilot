@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Resume History</title>
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        CareerPilot AI
+    </div>
+
+    <a href="dashboard.html">🏠 Dashboard</a>
+
+    <a href="applications.html">📄 Applications</a>
+
+    <a href="interviews.html">🎯 Interviews</a>
+
+    <a href="ats.html">📊 ATS Analyzer</a>
+
+    <a href="ats-history.html">📈 ATS History</a>
+
+    <a href="resume-history.html">📁 Resume History</a>
+    <a href="ats-comparison.html">
+    ⚖ ATS Comparison
+</a>
+    <a href="#" onclick="logout()">
+        🚪 Logout
+    </a>
+
+</div>
+
+<div class="main-content">
+
+    <h1>Resume History</h1>
+
+    <br>
+
+    <div class="recent-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Resume Name</th>
+
+                    <th>Version</th>
+
+                    <th>Upload Date</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="resumeTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="js/resume-history.js"></script>
+
+<script src="js/logout.js"></script>
+
+</body>
+
+</html>

@@ -3,14 +3,27 @@ package com.careerpilot.model;
 public class AtsResult {
 
 	private int atsScore;
+
 	private int predictedScore;
+
 	private int skillMatchPercentage;
 
+	private int projectScore;
+
+	private int experienceScore;
+
+	private int achievementScore;
+
+	private int resumeQualityScore;
+
 	private String matchedKeywords;
+
 	private String missingKeywords;
 
 	private String strengths;
+
 	private String weaknesses;
+
 	private String recommendations;
 
 	private String recruiterFeedback;
@@ -40,6 +53,38 @@ public class AtsResult {
 
 	public void setSkillMatchPercentage(int skillMatchPercentage) {
 		this.skillMatchPercentage = skillMatchPercentage;
+	}
+
+	public int getProjectScore() {
+		return projectScore;
+	}
+
+	public void setProjectScore(int projectScore) {
+		this.projectScore = projectScore;
+	}
+
+	public int getExperienceScore() {
+		return experienceScore;
+	}
+
+	public void setExperienceScore(int experienceScore) {
+		this.experienceScore = experienceScore;
+	}
+
+	public int getAchievementScore() {
+		return achievementScore;
+	}
+
+	public void setAchievementScore(int achievementScore) {
+		this.achievementScore = achievementScore;
+	}
+
+	public int getResumeQualityScore() {
+		return resumeQualityScore;
+	}
+
+	public void setResumeQualityScore(int resumeQualityScore) {
+		this.resumeQualityScore = resumeQualityScore;
 	}
 
 	public String getMatchedKeywords() {

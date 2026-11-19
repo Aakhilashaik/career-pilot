@@ -26,6 +26,30 @@ public class ResumeSectionChecker {
 			score += 5;
 		}
 
+		if (resume.contains("certification")
+				|| resume.contains("certifications")) {
+
+			score += 5;
+		}
+
+		if (resume.contains("achievement")
+				|| resume.contains("achievements")) {
+
+			score += 5;
+		}
+
+		if (resume.contains("internship")
+				|| resume.contains("internships")) {
+
+			score += 5;
+		}
+
+		if (resume.contains("summary")
+				|| resume.contains("professional summary")) {
+
+			score += 5;
+		}
+
 		return score;
 	}
 }

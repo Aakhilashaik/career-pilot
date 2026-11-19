@@ -3,47 +3,52 @@ package com.careerpilot.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.careerpilot.model.AtsComparison;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.careerpilot.model.AtsAnalysis;
+import com.careerpilot.model.AtsComparison;
+import com.careerpilot.model.AtsLeaderboard;
 import com.careerpilot.model.AtsResult;
 import com.careerpilot.repository.AtsAnalysisRepository;
 import com.careerpilot.util.PdfTextExtractor;
+import com.careerpilot.util.ResumeQualityAnalyzer;
 import com.careerpilot.util.ResumeSectionChecker;
 import com.careerpilot.util.SkillExtractor;
-import com.careerpilot.model.AtsLeaderboard;
+
 @Service
 public class AtsService {
 
 	@Autowired
 	private AtsAnalysisRepository repository;
 
-	// Save ATS Analysis
 	public String saveAnalysis(AtsAnalysis analysis) {
 
-		int result = repository.saveAnalysis(analysis);
+		int result =
+				repository.saveAnalysis(
+						analysis);
 
-		if (result > 0) {
+		if(result > 0) {
 			return "ATS Analysis Saved Successfully";
 		}
 
 		return "ATS Analysis Save Failed";
 	}
 
-	// ATS Analysis Using Resume Text
 	public AtsResult analyzeResume(
 			String resumeText,
 			String jobDescription) {
 
-		AtsResult result = new AtsResult();
+		AtsResult result =
+				new AtsResult();
 
 		List<String> resumeSkills =
-				SkillExtractor.extractSkills(resumeText);
+				SkillExtractor.extractSkills(
+						resumeText);
 
 		List<String> jdSkills =
-				SkillExtractor.extractSkills(jobDescription);
+				SkillExtractor.extractSkills(
+						jobDescription);
 
 		List<String> matchedSkills =
 				new ArrayList<>();
@@ -51,9 +56,9 @@ public class AtsService {
 		List<String> missingSkills =
 				new ArrayList<>();
 
-		for (String skill : jdSkills) {
+		for(String skill : jdSkills) {
 
-			if (resumeSkills.contains(skill)) {
+			if(resumeSkills.contains(skill)) {
 
 				matchedSkills.add(skill);
 
@@ -63,11 +68,9 @@ public class AtsService {
 			}
 		}
 
-		// Skill Match Percentage
-
 		int skillMatchPercentage = 0;
 
-		if (!jdSkills.isEmpty()) {
+		if(!jdSkills.isEmpty()) {
 
 			skillMatchPercentage =
 					(matchedSkills.size() * 100)
@@ -77,119 +80,196 @@ public class AtsService {
 		result.setSkillMatchPercentage(
 				skillMatchPercentage);
 
-		// Resume Section Score
-
 		int sectionScore =
 				ResumeSectionChecker.calculateSectionScore(
-						resumeText);
+				    resumeText);
 
-		// ATS Score
+				result.setResumeQualityScore(
+				    sectionScore);
 
+		int projectScore =
+				ResumeQualityAnalyzer.calculateProjectScore(
+				    resumeText);
+
+				result.setProjectScore(
+				    projectScore);
+				int experienceScore =
+						ResumeQualityAnalyzer.calculateExperienceScore(
+						    resumeText);
+
+						result.setExperienceScore(
+						    experienceScore);
+
+						int achievementScore =
+								ResumeQualityAnalyzer.calculateAchievementScore(
+								    resumeText);
+
+								result.setAchievementScore(
+								    achievementScore);
 		int atsScore =
-				(int) ((skillMatchPercentage * 0.7)
-						+ sectionScore
-						+ 10);
+				(int)(
+				(skillMatchPercentage * 0.50)
+				+ sectionScore
+				+ projectScore
+				+ experienceScore
+				+ achievementScore);
 
-		if (atsScore > 100) {
+		if(atsScore > 100) {
 			atsScore = 100;
 		}
 
-		result.setAtsScore(atsScore);
-
-		// Matched Keywords
+		result.setAtsScore(
+				atsScore);
 
 		result.setMatchedKeywords(
-				String.join(", ", matchedSkills));
-
-		// Missing Keywords
+				String.join(
+						", ",
+						matchedSkills));
 
 		result.setMissingKeywords(
-				String.join(", ", missingSkills));
+				String.join(
+						", ",
+						missingSkills));
 
-		// Strengths
+		StringBuilder strengths =
+				new StringBuilder();
 
-		if (!matchedSkills.isEmpty()) {
+		if(!matchedSkills.isEmpty()) {
 
-			result.setStrengths(
-					"Strong skills in: "
-							+ String.join(", ",
-									matchedSkills));
-		} else {
-
-			result.setStrengths(
-					"No matching skills found.");
+			strengths.append(
+					"Relevant skills found: ")
+					.append(
+					String.join(
+							", ",
+							matchedSkills))
+					.append(". ");
 		}
 
-		// Weaknesses
+		if(projectScore >= 15) {
 
-		if (!missingSkills.isEmpty()) {
-
-			result.setWeaknesses(
-					"Missing important skills: "
-							+ String.join(", ",
-									missingSkills));
-		} else {
-
-			result.setWeaknesses(
-					"No major skill gaps found.");
+			strengths.append(
+			"Strong technical projects detected. ");
 		}
 
-		// Recommendations
+		if(experienceScore >= 12) {
+
+			strengths.append(
+			"Good use of action-oriented experience descriptions. ");
+		}
+
+		if(achievementScore >= 8) {
+
+			strengths.append(
+			"Resume includes measurable achievements. ");
+		}
+
+		if(strengths.length() == 0) {
+
+			strengths.append(
+			"Basic resume structure detected.");
+		}
+
+		result.setStrengths(
+				strengths.toString());
+
+		StringBuilder weaknesses =
+				new StringBuilder();
+
+		if(!missingSkills.isEmpty()) {
+
+			weaknesses.append(
+					"Missing skills: ")
+					.append(
+					String.join(
+							", ",
+							missingSkills))
+					.append(". ");
+		}
+
+		if(sectionScore < 25) {
+
+			weaknesses.append(
+			"Resume is missing important sections. ");
+		}
+
+		if(achievementScore < 5) {
+
+			weaknesses.append(
+			"Few quantified achievements detected. ");
+		}
+
+		if(experienceScore < 8) {
+
+			weaknesses.append(
+			"Experience descriptions can be improved. ");
+		}
+
+		result.setWeaknesses(
+				weaknesses.toString());
 
 		StringBuilder recommendations =
 				new StringBuilder();
 
-		for (String skill : missingSkills) {
+		for(String skill : missingSkills) {
 
 			recommendations
 					.append("Add ")
 					.append(skill)
-					.append(" experience. ");
+					.append(
+					" through projects, internships or certifications. ");
 		}
 
-		if (recommendations.length() == 0) {
+		if(sectionScore < 25) {
 
 			recommendations.append(
-					"Resume is already strongly aligned with the job description.");
+			"Include Education, Skills, Projects, Experience and Certifications sections. ");
+		}
+
+		if(achievementScore < 5) {
+
+			recommendations.append(
+			"Add measurable achievements using percentages, numbers and project impact. ");
+		}
+
+		if(experienceScore < 8) {
+
+			recommendations.append(
+			"Use action verbs such as Developed, Designed, Built and Implemented. ");
 		}
 
 		result.setRecommendations(
 				recommendations.toString());
 
-		// Predicted Score
-
 		int predictedScore =
-				atsScore + (missingSkills.size() * 8);
+				atsScore
+				+ (missingSkills.size() * 5);
 
-		if (predictedScore > 100) {
+		if(predictedScore > 100) {
+
 			predictedScore = 100;
 		}
 
 		result.setPredictedScore(
 				predictedScore);
 
-		// Recruiter Feedback
-
-		if (atsScore >= 85) {
+		if(atsScore >= 85) {
 
 			result.setRecruiterFeedback(
-					"Excellent resume match. High probability of recruiter shortlist.");
+			"Excellent profile. Resume demonstrates strong technical relevance and recruiter appeal.");
 
-		} else if (atsScore >= 70) {
+		} else if(atsScore >= 70) {
 
 			result.setRecruiterFeedback(
-					"Good profile. Add missing skills to improve ATS performance.");
+			"Good profile. Improving missing skills and achievements can significantly increase interview chances.");
 
 		} else {
 
 			result.setRecruiterFeedback(
-					"Resume requires improvement. Several important skills are missing.");
+			"Resume requires improvement. Focus on skills, projects, measurable achievements and experience descriptions.");
 		}
 
 		return result;
 	}
-
-	// ATS Analysis Using PDF
 
 	public AtsResult analyzePdfResume(
 			String pdfPath,
@@ -197,23 +277,29 @@ public class AtsService {
 			throws Exception {
 
 		String resumeText =
-				PdfTextExtractor.extractText(pdfPath);
+				PdfTextExtractor
+				.extractText(pdfPath);
 
 		return analyzeResume(
 				resumeText,
 				jobDescription);
 	}
+
 	public List<AtsAnalysis> getAllAnalysis() {
 
-		return repository.getAllAnalysis();
+		return repository
+				.getAllAnalysis();
 	}
+
 	public List<AtsComparison> compareScores() {
 
-		return repository.compareScores();
+		return repository
+				.compareScores();
 	}
+
 	public AtsLeaderboard getBestResume() {
 
-		return repository.getBestResume();
+		return repository
+				.getBestResume();
 	}
-	
 }
